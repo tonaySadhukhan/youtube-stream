@@ -8,6 +8,7 @@ app.use(cors({
   origin: '*'
 }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.post('/download', (req, res) => {
     const url= req.body.url;
     console.log(url);
