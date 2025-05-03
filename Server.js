@@ -9,15 +9,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  let data = '';
-  req.on('data', chunk => { data += chunk; });
-  req.on('end', () => {
-    console.log('RAW BODY RECEIVED:', data);
-    next();
-  });
-});
-
 
 app.post('/download', (req, res) => {
   console.log(req.body);
