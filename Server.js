@@ -19,6 +19,7 @@ app.post('/download', (req, res) => {
     youtubedl(url, {
         output: outputPath,
         format: 'mp4',
+        cookie: './cookies.txt'
       }).then(output => {
         console.log('Downloaded successfully');
          res.setHeader('Content-Disposition', 'attachment; filename="video.mp4"');
