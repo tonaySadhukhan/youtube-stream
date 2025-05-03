@@ -9,6 +9,24 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  if (req.body && Object.keys(req.body).length === 0) {
+    let data = '';
+    req.on('data', chunk => {
+      data += chunk;
+    });
+    req.on('end', () => {
+      // Manually parse URL-encoded string
+      const params = new URLSearchParams(data);
+      req.body = Object.fromEntries(params.entries());
+      next();
+    });
+  } else {
+    next();
+  }
+});
+
+
 app.post('/download', (req, res) => {
     const url= req.body.url;
     console.log(url);
